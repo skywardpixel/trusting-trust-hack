@@ -1,8 +1,8 @@
-# Replicating the Thompson Attack
+# Replicating the Thompson Hack
 
 In Ken Thompson's famous paper *Reflections on Trusting Trust*, he introduced an attack that went undetected in the C compiler, which allowed the hacked compiler to compile compromised UNIX login commands. If you haven't read this paper yet, I strongly recommend that you [take a look](https://www.cs.cmu.edu/~rdriley/487/papers/Thompson_1984_ReflectionsonTrustingTrust.pdf). In this post, we will replicate Thompson's attack on a dummy login program.
 
-The wonderful part of the Thompson Attack is that it creates a rogue compiler that infects all its children. Even when the initial rogue compiler compiles clean source code of a compiler, the compiled compiler is still hacked, and will continue to generate hacked binaries. And these rogue compilers
+The wonderful part of the Thompson Hack is that it creates a rogue compiler that infects all its children. Even when the initial rogue compiler compiles clean source code of a compiler, the compiled compiler is still hacked, and will continue to generate hacked binaries. And these rogue compilers
 can go undetected, because their source code is clean. Ken Thompson quoted this attack to make the point that "No amount of source-level verification or scrutiny will protect you from using untrusted code."
 
 The starter code was part of Stanford's CS240lx labs created by Dr. Dawson Engler. You can find the lab files [here in the course repo](https://github.com/dddrrreee/cs240lx-20spr/tree/master/labs/1-trusting-trust). You can find my implementation of the Thompson Attack [here](https://github.com/kaichengyan/trusting-trust-hack).
@@ -39,7 +39,7 @@ int main() {
 
 We will look at how we can generate such a quine.
 
-The quine contains two parts: the `char s[]` definition and the main body. The contents of `s[]` is the second part of the program, starting from `/* Even` to the final `}`.
+The quine consists of two parts: the `char s[]` definition and the main body. The contents of `s[]` is the second part of the program, starting from `/* Even` to the final `}`.
 
 To create such a program, we start from the main body, defined in `step1/seed.c`:
 
@@ -60,7 +60,7 @@ int main() {
 }
 ```
 
-Note that `seed.c` by itself is not legal code. The definition of `s` is missing, and we will write some code to generate it.
+Note that `seed.c` by itself is not legal code. The definition of `s[]` is missing, and we will write some code to generate it.
 
 We write another program, `step1/string-to-char-array.c`, that takes input from `stdin`, and prints out a snippet of C code that defines a `char[]` named `s`, whose content is the same as the input.
 
@@ -82,7 +82,7 @@ int main(void) {
 }
 ```
 
-By combining these two snippets, we can obtain a quine `replicate.c`:
+We can now generate the `char[]` representation for our `seed.c`. By combining these two snippets (the `char[]` representation of `seed.c` and `seed.c` itself), we can obtain a quine `replicate.c`:
 
 ```shell
 # Compile string-to-char-array.c
