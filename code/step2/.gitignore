@@ -1,0 +1,8 @@
+*.dSYM
+identity-cc
+trojan-cc1
+login
+login-attacked
+cc-attacked
+temp-out.c
+out

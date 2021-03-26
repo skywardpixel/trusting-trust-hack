@@ -1,0 +1,5 @@
+*.dSYM
+kid.c
+replicate.c
+string-to-char-array
+replicate

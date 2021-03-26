@@ -1,0 +1,8 @@
+*.dSYM
+trojan-cc2
+login
+login-attacked
+generate-attack-array
+cc-attacked
+temp-out.c
+out
