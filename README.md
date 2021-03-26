@@ -2,9 +2,10 @@
 
 In Ken Thompson's famous paper *Reflections on Trusting Trust*, he introduced an attack that went undetected in the C compiler, which allowed the hacked compiler to compile compromised UNIX login commands. If you haven't read this paper yet, I strongly recommend that you [take a look](https://www.cs.cmu.edu/~rdriley/487/papers/Thompson_1984_ReflectionsonTrustingTrust.pdf). In this post, we will replicate Thompson's attack on a dummy login program.
 
-The starter code was part of Stanford's CS240lx labs created by Dr. Dawson Engler. You can find the lab files [here in the course repo](https://github.com/dddrrreee/cs240lx-20spr/tree/master/labs/1-trusting-trust).
+The wonderful part of the Thompson Attack is that it creates a rogue compiler that infects all its children. Even when the initial rogue compiler compiles clean source code of a compiler, the compiled compiler is still hacked, and will continue to generate hacked binaries. And these rogue compilers
+can go undetected, because their source code is clean. Ken Thompson quoted this attack to make the point that "No amount of source-level verification or scrutiny will protect you from using untrusted code."
 
-You can find my implementation of the Thompson Attack [here](https://github.com/kaichengyan/trusting-trust-hack).
+The starter code was part of Stanford's CS240lx labs created by Dr. Dawson Engler. You can find the lab files [here in the course repo](https://github.com/dddrrreee/cs240lx-20spr/tree/master/labs/1-trusting-trust). You can find my implementation of the Thompson Attack [here](https://github.com/kaichengyan/trusting-trust-hack).
 
 ## Step 1: A Self-Replicating Program
 
