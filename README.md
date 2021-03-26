@@ -114,9 +114,11 @@ diff replicate.c kid.c
 
 ## Step 2 - Hacking the "Compiler"
 
-The second step of Thompson's attack is hacking the compiler. In Thompson's paper, he actually an actual C compiler itself to inject code into the UNIX login program. In our replication, we will also target a specific program `step2/login.c`, but we will not be touching the compiler itself. Instead, we will "hack" a wrapper of `gcc`.
+The second step of Thompson's attack is hacking the compiler. In Thompson's paper, he actually modified an actual C compiler to inject code into the UNIX login program. In our replication, we will also target a specific program `step2/login.c`, but we will not be touching `gcc` itself. Instead, we will "hack" a wrapper of `gcc`.
 
-The wrapper is defined in `step2/identity-cc.c`. The program simply makes a copy of the source code (input) and throws the copy to `gcc` without changing it. We will hack this "compiler" by making it *change the source code* while copying it. Specifically, in `step2/trojan-cc1.c`, we will scan for the line `int login(char *user) {` in the source code, and inject this line below it to skip authentication if the username is `ken`:
+The wrapper is defined in `step2/identity-cc.c`. The program simply makes a copy of the source code (input) and throws the copy to `gcc` without changing it. We will hack this "compiler" by making it *change the source code* while copying it.
+
+Specifically, in `step2/trojan-cc1.c`, we will scan for the line `int login(char *user) {` in the source code, and inject this line below it to skip authentication if the username is `ken`:
 
 ```c
     if (strcmp(user, "ken") == 0) return 1;
@@ -339,7 +341,11 @@ static void compile(char *program, char *outname) {
 }
 ```
 
-And it's done! To verify that it works, we can run the following:
+Now what will happen when we compile a clean compiler `step2/identity-cc.c` is, `trojan-cc2` will inject our attack code defined in `compile_attack` right after the `assert`. Thus the attack code
+ends up in the new compiler, and the new compiler is again compromised. The new compiler, still
+having the attack code, will continue to infect compilers that it compiles.
+
+And now we are done! To verify that it works, we can run the following:
 
 ```shell
 # Compile trojan-cc2.c
