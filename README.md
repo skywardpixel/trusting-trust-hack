@@ -4,6 +4,8 @@ In Ken Thompson's famous paper *Reflections on Trusting Trust*, he introduced an
 
 The starter code was part of Stanford's CS240lx labs created by Dr. Dawson Engler. You can find the lab files [here in the course repo](https://github.com/dddrrreee/cs240lx-20spr/tree/master/labs/1-trusting-trust).
 
+You can find my implementation of the Thompson Attack [here](https://github.com/kaichengyan/trusting-trust-hack).
+
 ## Step 1: A Self-Replicating Program
 
 The first step toward a Thompson Attack involves creating a quine, or a self-reproducing program. To be more specific, a quine is a program that when run prints out its own source code.
