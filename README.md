@@ -341,9 +341,7 @@ static void compile(char *program, char *outname) {
 }
 ```
 
-Now what will happen when we compile a clean compiler `step2/identity-cc.c` is, `trojan-cc2` will inject our attack code defined in `compile_attack` right after the `assert`. Thus the attack code
-ends up in the new compiler, and the new compiler is again compromised. The new compiler, still
-having the attack code, will continue to infect compilers that it compiles.
+Now what will happen when we compile a clean compiler `step2/identity-cc.c` is, `trojan-cc2` will inject our attack code defined in `compile_attack` right after the `assert`. Thus the attack code ends up in the new compiler, and the new compiler is again compromised. The new compiler, still containing the (compiled) attack code, will continue to infect compilers that it compiles.
 
 And now we are done! To verify that it works, we can run the following:
 
